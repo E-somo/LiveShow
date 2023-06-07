@@ -1,27 +1,42 @@
+
 <!DOCTYPE html>
 <html>
 <head>
   <title>Sum Calculator</title>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </head>
 <body>
-  <h1>Sum Calculator</h1>
+  <h1>Kongera kubona PIN</h1>
   <table class="output" id =tabled></table>
   
-  <label for="num1">Number 1:</label>
-  <input type="number" id="num1" name="num1"><br>
+  <label for="num1">Shyiramo neza  mibare ya reference </label>
+ <input type="tel" id="num1" name="num1" placeholder="Shyiramo reference">
+<br> <br> <br>
+
   
-  <label for="num2">Number 2:</label>
-  <input type="number" id="num2" name="num2"><br>
+  <label for="num2">Andika nimero wakoresheje ugura</label>
+  <input type="tel" id="num2" name="num2" placeholder="Shyiramo Tel yishyuye"><br>
   
-  <button onclick="calculateSum()">Calculate Sum</button>
+  <button onclick="calculateSum()">Shakisha PIN yawe</button>
 
   <script>
   var num1 ="1223232"
   var num2 = "123";
-  var mystatus = 0;
+  var  separatedString="1236756";
+    
+  
+ var sumnow ="";
+  var mystatus= "not result";
+   var connecStatus= "not change";
+   
+  var currentDate = new Date();
+var day = currentDate.getDate();
+var month = currentDate.getMonth();
+
+var sumnow = day + month+1;
+
+   
     function calculateSum() {
     
       // Get the values from the input fields
@@ -38,8 +53,8 @@
 
 let timerInterval
 Swal.fire({
-  title: 'Searching'+num2,
-  html: 'I will close in <b></b> milliseconds.',
+  title: 'Searching:    '+num2,
+  html: 'Mwihangane gato mugihe Tubashakira PIN ......',
   timer: 5000,
   timerProgressBar: true,
   didOpen: () => {
@@ -64,8 +79,8 @@ Swal.fire({
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Something went wrong!",
-        footer: "<a href='#'>Need help?</a>"
+        text: "Shyiramo neza reference na nimero ya telefone yishyuye",
+        footer: "<a href='https://e-somo.github.io/Welcome-Page/'>Need help?</a>"
       });
     }  
     } 
@@ -98,20 +113,32 @@ Swal.fire({
           cell.textContent = ele.v;
 
           let text = cell.textContent;
-          let result = text.includes(num1)&&text.includes(num2);
-
+          var lastSevenCharacters = num1.substring(num1.length - 7);
+          let result = text.includes(num2) && text.includes(lastSevenCharacters);
+         
+        connecStatus= "change";
           if (result == true) {
+          
+var resultfre =text.replace(/-/g, ""); // Remove all occurrences of "-"
+var last17Characters = resultfre.slice(-17);
+ separatedString = last17Characters.match(/.{1,3}/g).join('-');
+
+
            
-            alert("alert pin is ");
-            mystatus= 1;
+            alert("alert pin is "+separatedString);
+            mystatus= "full Auto";
             
           }
-           let result2 = text.includes(num1)&&!text.includes(num2);
+       let result2 = text.includes(num2)&&!text.includes(lastSevenCharacters);
 
           if (result2 == true) {
            
+
+            var resultfre =text.replace(/-/g, ""); // Remove all occurrences of "-"
+var last17Characters = resultfre.slice(-17);
+ separatedString = last17Characters.match(/.{1,3}/g).join('-');
             alert("only one found ");
-            mystatus= 2;
+            mystatus= "full extra";
             
           }
           
@@ -121,13 +148,232 @@ Swal.fire({
     }); 
     
     setTimeout(function() {
+      if(mystatus== "not result"&& connecStatus== "change") {
       Swal.fire({
-        title: "Delayed Popup",
-        text: "This popup appeared after 5 seconds.",
-        icon: "success"
-      });
+        title: "Ibisubizo byawe",
+        text: "Ntabwo tubashije kubona igisubizo k'ubusabe bwanyu !",
+        icon: "error"
+      }); 
+      }
+      
+        if(mystatus== "not result"&& connecStatus== "not change") {
+      Swal.fire({
+        title: "No internet",
+        text: "Internet yanyu ntabwo ikora neza mwongere mugerageze!",
+        icon: "error"
+      }); 
+      }
+      
+      if(mystatus== "full Auto") {
+      
+ 
+ let myString = separatedString;
+let pined = myString;
+
+
+let yearNowph = pined.replaceAll("-", "");
+let datein = yearNowph.substring(yearNowph.length - 4, yearNowph.length - 2);
+let motin = yearNowph.substring(yearNowph.length - 6, yearNowph.length - 4);
+let yrIn = yearNowph.substring(yearNowph.length - 8, yearNowph.length - 6);
+
+let currentDate = new Date();
+let tsavyy = currentDate.getFullYear().toString();
+
+let calendar2 = new Date(parseInt(tsavyy), parseInt(motin) / 2 - 1, parseInt(datein) / 2);
+calendar2.setDate(calendar2.getDate() + 61);
+let newDate = calendar2;
+ 
+let resuts = newDate.toISOString().split('T')[0] + ' ' + newDate.toTimeString().split(' ')[0];
+
+let tsavhm = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+
+let dayAssigned = resuts + ' ';
+let exdate = resuts + ' ' + tsavhm;
+
+let specificDate;
+let today = new Date();
+let timeDifference;
+let differenceInDays;
+
+specificDate = new Date(dayAssigned);
+timeDifference = specificDate.getTime() - today.getTime();
+differenceInDays = Math.floor(timeDifference / (1000 * 3600 * 24));
+
+alert("hey hye"+differenceInDays);
+
+if (differenceInDays > 0 &&differenceInDays<181) {
+
+
+
+ var num2 = parseInt(document.getElementById("num2").value);
+var resultnew = num2 + 111111111+sumnow;
+       
+    Swal.fire({
+  title: 'Pin Yanyu Iraboneka!',
+  text: "Musabwa Gukanda *584*000111*0" + num2+"# <br>  Na  MTN- Rwanda Sim card  muhabwe imibare mwuza hasi musubirane PIN yanyu",
+  input: 'number',
+  footer: "<a href='https://e-somo.github.io/Welcome-Page/'> Mukeneye ubufasha / Need help?</a>",
+  inputAttributes: {
+    autocapitalize: 'off'
+  },
+  showCancelButton: true,
+  confirmButtonText: 'Check',
+  showLoaderOnConfirm: true,
+  preConfirm: (value) => {
+    if (value * 1 === resultnew) {
+      Swal.fire('Success!', 'PIN yanyu muzanjya mukoreshha irabonetse ni iyi <br>' + separatedString+ '  <br> <br> Musabwa kuyibika neza kdi ntihakagire undi uwariwe wese muyiha (not to share with anyone ! ) ', 'success');
+    } else {
+      Swal.showValidationMessage('Validation Error: Mushyiremo Imibare neza!');
+    }
+  },
+  allowOutsideClick: () => !Swal.isLoading()
+});
+
+  
+  
+}else {
+ 
+  Swal.fire({
+  icon: "error",
+  title: "Oops...",
+  text: 'Abonema yanyu yararangiye !!!    Hagati aho mushobora kugura Indi !',
+  footer: "<a href='https://e-somo.github.io/Welcome-Page/'>Need help?</a>"
+});
+
+
+
+}
+ 
+}
+
+
+if(mystatus== "full extra") {
+      
+       
+      let myString = separatedString;
+     let pined = myString;
+     
+     
+     let yearNowph = pined.replaceAll("-", "");
+     let datein = yearNowph.substring(yearNowph.length - 4, yearNowph.length - 2);
+     let motin = yearNowph.substring(yearNowph.length - 6, yearNowph.length - 4);
+     let yrIn = yearNowph.substring(yearNowph.length - 8, yearNowph.length - 6);
+     alert("ckeck extaraaaa"+separatedString)
+     let currentDate = new Date();
+     let tsavyy = currentDate.getFullYear().toString();
+     
+     let calendar2 = new Date(parseInt(tsavyy), parseInt(motin) / 2 - 1, parseInt(datein) / 2);
+     calendar2.setDate(calendar2.getDate() + 61);
+     let newDate = calendar2;
+      
+     let resuts = newDate.toISOString().split('T')[0] + ' ' + newDate.toTimeString().split(' ')[0];
+     
+     let tsavhm = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+     
+     
+     let dayAssigned = resuts + ' ';
+     let exdate = resuts + ' ' + tsavhm;
+     
+     let specificDate;
+     let today = new Date();
+     let timeDifference;
+     let differenceInDays;
+     
+     specificDate = new Date(dayAssigned);
+     timeDifference = specificDate.getTime() - today.getTime();
+     differenceInDays = Math.floor(timeDifference / (1000 * 3600 * 24));
+     
+     //alert("hey hye"+differenceInDays);
+     
+     if (differenceInDays > 0 &&differenceInDays<181) {
+       
+        
+
+        let currentDate = new Date();
+
+// Check if the current day is Friday after 5 PM
+if (currentDate.getDay() === 5 && currentDate.getHours() >= 17) {
+  
+    Swal.fire({
+       icon: "error",
+       title: "Oops...",
+       text: 'Muri aya masaha ntabwo urufunguzo rurimo kuboneka!!!   Mwongere ejo 18h00 z umugoroba!',
+       footer: "<a href='https://e-somo.github.io/Welcome-Page/'>Need help?</a>"
+     });
+     
+}
+// Check if the current day is Saturday before 6 PM
+else if (currentDate.getDay() === 6 && currentDate.getHours() < 18) {
+  
+    Swal.fire({
+       icon: "error",
+       title: "Oops...",
+       text: 'Muri aya masaha ntabwo urufunguzo rurimo kuboneka!!!   Mwongere mukanya 18h00 z umugoroba!',
+       footer: "<a href='https://e-somo.github.io/Welcome-Page/'>Need help?</a>"
+     });
+     
+
+
+}
+else {
+
+
+     
+      var num2 = parseInt(document.getElementById("num2").value);
+     var resultnew = num2 + 100001111+sumnow;
+            
+         Swal.fire({
+       title: 'Mwahinduye smart phone !',
+       text: "Turabonako mwahinduye Smart Phone yanyu ! icyo gihe mutegetswe  gukura App uri smart phone yambere !!  Niba mwifuza kujya mukoresha iyi smart phone muri kwiga mukareka iyambere murasabwa gusaba urufunguzo rushya  kugirango murubone Murishyura 220Frw kuri momo pay  *182*8*1*193449*220# ya TUBIMENYE Smart Solution Ltd mukoresheje nimero yanyu gusa ariyo 0"+num2 +" Nyuma yo kwishyura murahabwa OTP mwuzuza hano hasi muhabwe indi PIN nshya   ",
+       input: 'number',
+       footer: "<a href='https://e-somo.github.io/Welcome-Page/'>Need help?</a>",
+       inputAttributes: {
+         autocapitalize: 'off'
+       },
+       showCancelButton: true,
+       confirmButtonText: 'Check',
+       showLoaderOnConfirm: true,
+       preConfirm: (value) => {
+         if (value * 1 === resultnew) {
+           Swal.fire('Success!', 'PIN yanyu muzanjya mukoreshha  ntabwo ihise iboneka  musabwa kohereze iyi code muri SMS    <br>  RRRR ' + num1+ '  <br> <br> Musabwa kuyohereza mukoresheje iyi SIM card gusa 0'+num2+' \n nyuma yo kohereza iyi code murahita muhabwa  PIN nsha muzajya mukoresha  SMS murayohereza kuri 0789470000 Murakoze Amategeko n amabwiriza birakurikizwa ! ', 'success');
+         } else {
+           Swal.showValidationMessage('Validation Error: Mushyiremo Imibare neza!');
+         }
+       },
+       allowOutsideClick: () => !Swal.isLoading()
+     });
+    }
+     
+       
+       
+     }else {
+      
+       Swal.fire({
+       icon: "error",
+       title: "Oops...",
+       text: 'Abonema yanyu yararangiye !!!    Hagati aho mushobora kugura Indi !',
+       footer: "<a href='https://e-somo.github.io/Welcome-Page/'>Need help?</a>"
+     });
+     
+     
+     
+     }
+      
+     }
+
+
+
+
+
+
+
+
+
+ 
     }, 5000);
-   
+    
+    
 }
     
   </script>
